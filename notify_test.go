@@ -7,8 +7,7 @@ import (
 )
 
 func TestNotify(t *testing.T) {
-	//Init("appName", "appSign")
-	Init("classNotify", "oMLOkkFFYTvPNLWZqbkWcsLYzj6I")
+	Init("appName", "appSign")
 
 	notice := New()
 	notice.NewWeChat().
