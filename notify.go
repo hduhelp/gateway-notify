@@ -37,8 +37,9 @@ type SendResult struct {
 
 type Template struct {
 	StaffID  []string            `json:"StaffID"`
-	WeChat   *WeChatNoticeBody   `json:"Template,omitempty"`
+	WeChat   *WeChatNoticeBody   `json:"template,omitempty"`
 	DingTalk *DingTalkNoticeBody `json:"dingtalk,omitempty"`
+	App      *UniNotifyInput     `json:"body,omitempty"`
 }
 
 func New() *Template {
@@ -60,6 +61,16 @@ func (t *Template) NewWeChat() *WeChatNoticeBody {
 func (t *Template) NewDingTalk() *DingTalkNoticeBody {
 	t.DingTalk = &DingTalkNoticeBody{}
 	return t.DingTalk
+}
+
+func (t *Template) NewApp(title, subtitle, content, extra string) *UniNotifyInput {
+	t.App = &UniNotifyInput{
+		Title:    title,
+		SubTitle: subtitle,
+		Content:  content,
+		Extra:    extra,
+	}
+	return t.App
 }
 
 func (t *Template) Send() error {
@@ -166,4 +177,11 @@ type DingTalkMsgLinkInput struct {
 type DingTalkMsgMarkdownInput struct {
 	Title string `json:"title"` // 这个是点进推送列表前显示的简短的消息（进入后不可见）
 	Text  string `json:"text"`  // 这个是进入后显示的详细的消息
+}
+
+type UniNotifyInput struct {
+	Title    string
+	SubTitle string
+	Content  string
+	Extra    string
 }

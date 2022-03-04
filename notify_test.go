@@ -7,15 +7,17 @@ import (
 )
 
 func TestNotify(t *testing.T) {
-	Init("appName", "appSign")
+	//Init("appName", "appSign")
+	Init("classNotify", "oMLOkkFFYTvPNLWZqbkWcsLYzj6I")
+
 	notice := New()
 	notice.NewWeChat().
-		SetTmpl("WZsoRBsLvbwRSk_2qr3oTkproxKbwbNjx4iwE7swJ6Y"). // 学校通知
-		SetData("first", "通知标题", ""). // 标题
-		SetData("keyword1", "通知大学", ""). // 学校
-		SetData("keyword2", "通知人", ""). // 通知人
+		SetTmpl("WZsoRBsLvbwRSk_2qr3oTkproxKbwbNjx4iwE7swJ6Y").   // 学校通知
+		SetData("first", "通知标题", "").                             // 标题
+		SetData("keyword1", "通知大学", "").                          // 学校
+		SetData("keyword2", "通知人", "").                           // 通知人
 		SetData("keyword3", time.Now().Format("2006-01-02"), ""). // 通知时间
-		SetData("keyword4", "通知内容", "") // 通知内容
+		SetData("keyword4", "通知内容", "")                           // 通知内容
 	notice.NewDingTalk().
 		MarkdownMsg(
 			fmt.Sprintf("您收到一条来自%s的通知", "通知人"),
