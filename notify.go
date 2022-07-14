@@ -6,21 +6,27 @@ import (
 	"sync"
 )
 
-var (
-	from = ""
-	sign = ""
-)
-
 var notifierPool *sync.Pool
 
+// Init 内部应用认证初始化
 func Init(appName, appSign string) {
-	from = appName
-	sign = appSign
 	notifierPool = &sync.Pool{
 		New: func() interface{} {
 			return gorequest.New().
-				Post("https://api.hduhelp.com/notify/batch?from="+from).
-				Set("sign", sign)
+				Post("https://api.hduhelp.com/notify?from="+appName).
+				Set("sign", appSign)
+		},
+	}
+}
+
+// InitOAuthApp OAuth应用认证初始化
+func InitOAuthApp(clientId, clientSecret string) {
+	notifierPool = &sync.Pool{
+		New: func() interface{} {
+			return gorequest.New().
+				Post("https://api.hduhelp.com/notify").
+				Param("client_id", clientId).
+				Param("client_secret", clientSecret)
 		},
 	}
 }
